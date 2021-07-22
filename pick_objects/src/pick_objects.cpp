@@ -17,19 +17,20 @@ int main(int argc, char** argv){
     ROS_INFO("Waiting for the move_base action server to come up");
   }
 
-  move_base_msgs::MoveBaseGoal goal;
+  move_base_msgs::MoveBaseGoal pickUp_goal;
 
   // set up the frame parameters
-  goal.target_pose.header.frame_id = "map";
-  goal.target_pose.header.stamp = ros::Time::now();
+  pickUp_goal.target_pose.header.frame_id = "map";
+  pickUp_goal.target_pose.header.stamp = ros::Time::now();
 
   // Define a position and orientation for the robot to reach
-  goal.target_pose.pose.position.x = 1.0;
-  goal.target_pose.pose.orientation.w = 1.0;
+  pickUp_goal.target_pose.pose.position.x = -1.0;
+  pickUp_goal.target_pose.pose.position.y = -1.0;
+  pickUp_goal.target_pose.pose.orientation.w = -1.0;
 
    // Send the goal position and orientation for the robot to reach
-  ROS_INFO("Sending goal");
-  ac.sendGoal(goal);
+  ROS_INFO("Sending pickUp_goal");
+  ac.sendGoal(pickUp_goal);
 
   // Wait an infinite time for the results
   ac.waitForResult();
@@ -55,6 +56,7 @@ int main(int argc, char** argv){
 
   // Define a position and orientation for the robot to reach
   dropOff_goal.target_pose.pose.position.x = 4.0;
+  dropOff_goal.target_pose.pose.position.y = 4.0;
   dropOff_goal.target_pose.pose.orientation.w = 1.0;
 
   // Send the goal position and orientation for the robot to reach
